@@ -1,0 +1,203 @@
+/*.. loading CSS asynchronously and gain speed loading the site ..
+ *.. (apply immediate CSS with inlineCSS on HTML) ..
+<link rel="stylesheet" href="/path/to/my.css" media="print" onload="this.media='all'">
+ */
+
+/* Favorite css reset: Normalize.css */
+/* Plus 8 categories -->
+	1- Box-sizing
+	2- Removing margins and paddings
+	3- List
+	4- Forms and buttoms
+	5- Images and embeds
+	6- Tables
+	7- The hidden attribute
+	8- Noscript
+*/
+
+/*** Box-sizing ***/
+html {
+    box-sizing: border-box;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+  
+  /*** Reset margins and paddings on most elements ***/
+  body,
+  h1,h2,h3,h4,h5,h6,
+  ul,ol,li,
+  p,
+  pre,
+  blockquote,
+  figure,
+  hr {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /*** List: Removes discs from ul ***/
+  ul {
+    list-style: none;
+  };
+  
+  /*** Forms and buttoms ***/
+  input,
+  textarea,
+  select,
+  button {
+    color: inherit; 
+    font: inherit; 
+    letter-spacing: inherit; 
+  }
+  input,
+  textarea,
+  button {
+    border: 1px solid gray; 
+  }
+  button {
+    border-radius: 0; 
+    padding: 0.75em 1em;
+    background-color: transparent;
+  }
+  embed,
+  iframe,
+  img,
+  object,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+          /* ...mainly used for JavaScript interaction... */
+  button * {
+    pointer-events: none;
+  }
+  
+  
+  /*** Tables ***/
+  table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  
+  /*** the hidden attribute ***/
+  [hidden] {
+    display: none !important;
+  }
+  
+  /*** Noscript: ...to let user know there is a script they had disabled; ***/
+  noscript {
+    display: block;
+    margin-bottom: 1em;
+    margin-top: 1em;
+  }
+  
+  /*********** Custom css begins ************/
+  /* use em in your media queries
+  /* pick min-width or max-width (not both) to simplify queries
+  /* avoid using fixed dimentions for elements
+  
+  
+  /************** Hack to overfloat images inside blocks *****/
+  .outer {
+    border: 5px dotted rgb(214,129,137);
+    border-radius: 5px;
+    width: 450px;
+    padding: 10px;
+    margin-bottom: 40px;
+    overflow: auto; /* <--- the important piece of the puzzle */ 
+  }
+  .float {
+    padding: 10px;
+    border: 5px solid rgba(214,129,137,.4);
+    border-radius: 5px;
+    background-color: rgba(233,78,119,.4);
+    color: #fff;
+    float: left;  
+    width: 200px;
+    margin: 0 20px 0 0;
+  }
+  
+  /******* prevents margins collapsing ********/
+  .outer {
+     background-color: #ccc;
+    margin: 0 0 40px 0;
+    overflow: auto;/* <--- the important piece of the puzzle */ 
+  }
+  p {
+    padding: 0;
+    margin: 20px 0 20px 0;
+    background-color: rgb(233,78,119);
+    color: #fff;
+  }
+
+  /****** separate layout css from design css ******/
+  /* Keep the job of “lipstick” separated from the job of “layout”, also known as separation of concerns */
+  
+  :root{
+      --color: hsl(49 37% 94%);
+      --tSpeed: 2.5s;
+  }
+  body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    background: var(--color);
+  }
+  h1{
+    font-size: clamp (1rem, 3vw + 1rem, 4rem);
+    position: relative;
+    font-family: 'Source Code Pro', monospace;
+    width: max-content;
+    padding-left: 3rem;
+  }
+  h1::before,
+  h1::after{
+      content:'';
+      top:0;
+      right:0;
+      bottom:0;
+      left:0;
+      position: absolute;
+  }
+  h1::before{
+      background: var(--color);
+      animation: 
+        typewriter var(--tSpeed) steps(23) forwards 1800ms;
+  }
+  h1::after{
+      width: 0.125em;
+      background: black;
+      animation: 
+        typewriter var(--tSpeed) steps(23) forwards 1800ms,
+        blink 600ms steps(24) infinite;
+  }
+  .subtitle{
+      color: hsl(0 0% 0% / 0.7);
+      font-size: 2rem;
+      font-weight: 400;
+      opacity: 0;
+      transform: translateY(2rem);
+      animation: 
+        fadeInOut 1s ease calc(var(--tSpeed) + 1800ms) forwards;
+  }
+@keyframes typewriter {
+    to {
+        left:100%;
+    }
+}
+@keyframes blink {
+    to{
+        background: transparent;
+    }
+}
+@keyframes fadeInOut {
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
